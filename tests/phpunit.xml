@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.2/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         verbose="true"
+         bootstrap="../vendor/autoload.php">
+    <testsuites>
+        <testsuite name="Acme Test Suite">
+            <directory>.</directory>
+            <directory>./Task/</directory>
+            <exclude>vendor</exclude>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <blacklist>
+            <directory suffix=".php">../vendor</directory>
+        </blacklist>
+    </filter>
+</phpunit>

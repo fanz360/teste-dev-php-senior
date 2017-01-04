@@ -1,0 +1,21 @@
+{
+  "name": "upx/teste-backend",
+  "description": "What can be better?",
+  "minimum-stability" : "stable",
+  "autoload": {
+    "psr-4": {
+      "Acme\\": [
+        "src/",
+        "tests/"
+      ]
+    }
+  },
+  "require": {
+    "php": ">=7.1",
+    "silex/silex": "~2.0",
+    "guzzlehttp/guzzle": "6.2.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.7"
+  }
+}
