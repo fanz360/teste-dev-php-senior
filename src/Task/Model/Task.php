@@ -2,9 +2,35 @@
 
 namespace Acme\Task\Model;
 
-
-class Task
+/**
+ * Class Task
+ * @package Acme\Task\Model
+ */
+class Task extends _base
 {
+
+    /**
+     * Task constructor.
+     */
+    function __construct()
+    {
+        $this->table = 'tasks';
+        $this->rules = $this->rules();
+    }
+
+    /**
+     * função de configuração para regras, futuramente pode ser add regras para tipos de valores: ex.: somente string
+     * validação de email, datas, etc.
+     *
+     * @return array
+     */
+    public function rules ()
+    {
+        return [
+            'safe' => ['id', 'description', 'isDone', 'tagId']
+        ];
+    }
+
     /**
      * @var int
      */
@@ -21,6 +47,19 @@ class Task
     private $isDone;
 
     /**
+     * @var bool
+     */
+    private $tagId;
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        return $this->table;
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -29,11 +68,31 @@ class Task
     }
 
     /**
-     * @param int $id
+     * @return int
      */
-    public function setId($id)
+    public function getTagId()
     {
-        $this->id = $id;
+        return $this->tagId;
+    }
+
+    /**
+     * @return _base
+     */
+    public function getTag()
+    {
+        if(!is_null($this->tagId))
+        {
+            // Pega as informações de tag que estão ligas a essa task
+            return (new Tag())->findOne($this->tagId, 'tags', "\\Acme\\Task\\Model\\Tag");
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIsDone()
+    {
+        return $this->isDone;
     }
 
     /**
@@ -53,11 +112,11 @@ class Task
     }
 
     /**
-     * @return bool
+     * @param int $id
      */
-    public function isIsDone()
+    public function setId($id)
     {
-        return $this->isDone;
+        $this->id = $id;
     }
 
     /**
@@ -67,4 +126,14 @@ class Task
     {
         $this->isDone = $isDone;
     }
+
+    /**
+     * @param $tagId
+     */
+    public function setTagId($tagId)
+    {
+        $this->tagId = $tagId;
+    }
+
+
 }

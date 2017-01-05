@@ -12,7 +12,7 @@ class TaskControllerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->httpClient = new Client([
-            'base_uri' => 'http://127.0.0.1',
+            'base_uri' => 'http://senior.local:88/',
             'http_errors' => false,
         ]);
     }
@@ -46,6 +46,7 @@ class TaskControllerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('message', $data);
     }
 
+
     public function testMustAddTaskWithSuccess()
     {
         $title = 'The title - ' . date('U');
@@ -62,5 +63,47 @@ class TaskControllerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('id', $data);
         $this->assertArrayHasKey('title', $data);
         $this->assertEquals($title, $data['title']);
+    }
+
+    public function testMustAddTaskWithTagSuccessAfterCreateTag()
+    {
+        $tagId = 1;
+        $title = 'The title - ' . date('U');
+        $response = $this->httpClient->post('/add', [
+            'json' => [
+                'title' => $title,
+                'tagId' => $tagId
+            ]
+        ]);
+
+        $this->assertEquals(201, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('id', $data);
+        $this->assertArrayHasKey('title', $data);
+        $this->assertEquals($title, $data['title']);
+    }
+
+    public function testMustGetError()
+    {
+        $response = $this->httpClient->post('/get', [
+            'json' => [
+                'id' => 0,
+            ]
+        ]);
+
+        $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    public function testMustGetSuccess()
+    {
+        $response = $this->httpClient->post('/get', [
+            'json' => [
+                'id' => 1,
+            ]
+        ]);
+
+        $this->assertEquals(201, $response->getStatusCode());
     }
 }
