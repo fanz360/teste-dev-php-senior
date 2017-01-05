@@ -18,8 +18,10 @@ class TaskTest extends PHPUnit_Framework_TestCase
         $task = new Task();
         $task->setId(10);
         $task->setDescription('Hello world!');
+        $task->setTagId(1);
 
         $this->assertEquals(10, $task->getId());
         $this->assertEquals('Hello world!', $task->getDescription());
+        $this->assertEquals(1, $task->getTagId());
     }
 }
