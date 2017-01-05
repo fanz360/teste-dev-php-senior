@@ -13,8 +13,8 @@ use Acme\Util\Database;
  * Class TagController
  * @package Acme\Task\Controller
  */
-class TagController implements ControllerProviderInterface {
-
+class TagController implements ControllerProviderInterface
+{
 
     /**
      *  Rotas de conexão
@@ -75,7 +75,8 @@ class TagController implements ControllerProviderInterface {
             'tags' => [],
         );
 
-        foreach ($results as $t) {
+        foreach ($results as $t)
+        {
             $response['tags'][] = array(
                 'id' => $t['id'],
                 'name' => $t['name'],
@@ -99,11 +100,14 @@ class TagController implements ControllerProviderInterface {
         $name = isset($data['name']) ? $data['name'] : NULL;
         $color = isset($data['color']) ? $data['color'] : NULL;
 
-        if (strlen($name) < 3) {
+        if (strlen($name) < 3)
+        {
             return new JsonResponse([
                 'message' => 'The name field must have 3 or more characters'
             ], 422);
-        } else {
+        }
+        else
+        {
             $tag = new Tag();
             $tag->setName($name);
             $tag->setColor($color);

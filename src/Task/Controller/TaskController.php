@@ -13,7 +13,8 @@ use Acme\Util\Database;
  * Class TaskController
  * @package Acme\Task\Controller
  */
-class TaskController implements ControllerProviderInterface {
+class TaskController implements ControllerProviderInterface
+{
 
     /**
      *  Rotas de conexão
@@ -23,7 +24,8 @@ class TaskController implements ControllerProviderInterface {
      * @param Application $app
      * @return mixed
      */
-    public function connect(Application $app) {
+    public function connect(Application $app)
+    {
         $factory = $app['controllers_factory'];
         $factory->get('/','Acme\Task\Controller\TaskController::listAction');
         $factory->post('/get','Acme\Task\Controller\TaskController::getAction');
@@ -70,7 +72,8 @@ class TaskController implements ControllerProviderInterface {
             'tasks' => [],
         );
 
-        foreach ($results as $t) {
+        foreach ($results as $t)
+        {
             $response['tasks'][] = array(
                 'id' => $t['id'],
                 'title' => $t['description'],
@@ -94,11 +97,14 @@ class TaskController implements ControllerProviderInterface {
         $title = isset($data['title']) ? $data['title'] : NULL;
         $tagId = isset($data['tagId']) ? $data['tagId'] : NULL;
 
-        if (strlen($title) < 3) {
+        if (strlen($title) < 3)
+        {
             return new JsonResponse([
                 'message' => 'The title field must have 3 or more characters'
             ], 422);
-        } else {
+        }
+        else
+        {
             $task = new Task();
             $task->setDescription($title);
             $task->setTagId($tagId);
