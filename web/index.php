@@ -18,5 +18,6 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->mount('/', new \Acme\Task\Controller\TaskController());
+$app->mount('/tag', new \Acme\Task\Controller\TagController());
 
 $app->run();
