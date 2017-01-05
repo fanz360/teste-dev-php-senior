@@ -18,7 +18,7 @@ class Database
             // Não estava encontrando a pasta com valor absoluto por conta do ambiente
             //$dsn = 'sqlite:/var/www/app/db/task.sqlite';
             $dsn = 'sqlite:'.__DIR__.'/../../db/task.sqlite';
-            
+
             self::$conn = new PDO($dsn);
 
             if(!self::$conn) {
@@ -27,6 +27,7 @@ class Database
 
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             self::$conn->exec("CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT, message TEXT)");
+            self::$conn->exec("CREATE TABLE IF NOT EXISTS tags (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, color TEXT)");
         }
         return self::$conn;
     }
