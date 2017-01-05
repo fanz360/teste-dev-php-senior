@@ -15,7 +15,10 @@ class Database
     public static function getConnection()
     {
         if (self::$conn === NULL) {
-            $dsn = 'sqlite:/var/www/app/db/task.sqlite';
+            // Não estava encontrando a pasta com valor absoluto por conta do ambiente
+            //$dsn = 'sqlite:/var/www/app/db/task.sqlite';
+            $dsn = 'sqlite:'.__DIR__.'/../../db/task.sqlite';
+            
             self::$conn = new PDO($dsn);
 
             if(!self::$conn) {
