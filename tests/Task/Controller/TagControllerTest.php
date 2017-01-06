@@ -12,7 +12,7 @@ class TagControllerTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->httpClient = new Client([
-            'base_uri' => 'http://senior.local:88',
+            'base_uri' => 'http://127.0.0.1',
             'http_errors' => false,
         ]);
     }
