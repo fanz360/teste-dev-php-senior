@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Task\Model;
+namespace Acme\Task\Controller;
 
 use \PHPUnit_Framework_TestCase;
 use GuzzleHttp\Client;
@@ -93,7 +93,11 @@ class TaskControllerTest extends PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('id', $data);
     }
 
     public function testMustGetSuccess()
@@ -105,5 +109,7 @@ class TaskControllerTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals(201, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
     }
 }

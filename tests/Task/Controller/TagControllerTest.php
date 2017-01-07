@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Task\Model;
+namespace Acme\Task\Controller;
 
 use \PHPUnit_Framework_TestCase;
 use GuzzleHttp\Client;
@@ -106,17 +106,6 @@ class TagControllerTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testMustGetError()
-    {
-        $response = $this->httpClient->post('/tag/get', [
-            'json' => [
-                'id' => 0,
-            ]
-        ]);
-
-        $this->assertEquals(404, $response->getStatusCode());
-    }
-
     public function testMustGetSuccess()
     {
         $response = $this->httpClient->post('/tag/get', [
@@ -126,5 +115,10 @@ class TagControllerTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals(201, $response->getStatusCode());
+
+        $data = json_decode($response->getBody(), true);
+
+        $this->assertArrayHasKey('id', $data);
+        $this->assertEquals(1, $data['id']);
     }
 }
